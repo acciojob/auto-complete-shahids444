@@ -112,9 +112,11 @@ const AutoComplete = () => {
         className: 'animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500'
       })),
       
-      (showSuggestions || (inputValue && !isLoading && suggestions.length === 0)) && React.createElement('ul', {
+      React.createElement('ul', {
         key: 'suggestions-container',
-        className: 'absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg mt-1 shadow-lg z-10 max-h-48 overflow-y-auto list-none'
+        className: showSuggestions || (inputValue && !isLoading && suggestions.length === 0) 
+          ? 'absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg mt-1 shadow-lg z-10 max-h-48 overflow-y-auto list-none'
+          : 'absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg mt-1 shadow-lg z-10 max-h-48 overflow-y-auto list-none hidden'
       }, suggestions.length > 0 ? suggestions.map(function(suggestion, index) {
         return React.createElement('li', {
           key: index,
