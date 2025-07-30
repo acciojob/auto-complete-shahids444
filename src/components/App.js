@@ -125,10 +125,13 @@ const AutoComplete = () => {
         }, React.createElement('span', {
           className: 'text-gray-800 capitalize'
         }, suggestion));
-      }) : inputValue && !isLoading ? [React.createElement('li', {
+      }) : inputValue && !isLoading && suggestions.length === 0 ? [React.createElement('li', {
         key: 'no-results',
         className: 'px-4 py-3 text-gray-500 text-center'
-      }, 'No fruits found matching "' + inputValue + '"')] : []),
+      }, 'No fruits found matching "' + inputValue + '"')] : [React.createElement('li', {
+        key: 'default-item',
+        className: 'px-4 py-3 text-gray-400 text-center'
+      }, 'Start typing to see suggestions...')]),
     ]),
     
     React.createElement('div', {
