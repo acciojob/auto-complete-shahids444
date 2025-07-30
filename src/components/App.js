@@ -112,25 +112,21 @@ const AutoComplete = () => {
         className: 'animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500'
       })),
       
-      showSuggestions && React.createElement('div', {
-        key: 'suggestions',
-        className: 'absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg mt-1 shadow-lg z-10 max-h-48 overflow-y-auto'
-      }, suggestions.map(function(suggestion, index) {
-        return React.createElement('div', {
+      (showSuggestions || (inputValue && !isLoading && suggestions.length === 0)) && React.createElement('ul', {
+        key: 'suggestions-container',
+        className: 'absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg mt-1 shadow-lg z-10 max-h-48 overflow-y-auto list-none'
+      }, suggestions.length > 0 ? suggestions.map(function(suggestion, index) {
+        return React.createElement('li', {
           key: index,
           onClick: function() { handleSuggestionClick(suggestion); },
           className: 'px-4 py-3 cursor-pointer hover:bg-blue-50 transition-colors border-b border-gray-100 last:border-b-0'
         }, React.createElement('span', {
           className: 'text-gray-800 capitalize'
         }, suggestion));
-      })),
-      
-      inputValue && !isLoading && suggestions.length === 0 && React.createElement('div', {
+      }) : inputValue && !isLoading ? [React.createElement('li', {
         key: 'no-results',
-        className: 'absolute top-full left-0 right-0 bg-white border-2 border-gray-200 rounded-lg mt-1 shadow-lg z-10'
-      }, React.createElement('div', {
         className: 'px-4 py-3 text-gray-500 text-center'
-      }, 'No fruits found matching "' + inputValue + '"'))
+      }, 'No fruits found matching "' + inputValue + '"')] : []),
     ]),
     
     React.createElement('div', {
